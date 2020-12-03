@@ -2006,9 +2006,12 @@ function wp_insert_comment( $commentdata ) {
 	$comment_type     = empty( $data['comment_type'] ) ? 'comment' : $data['comment_type'];
 	$comment_parent   = ! isset( $data['comment_parent'] ) ? 0 : $data['comment_parent'];
 
+  $tempest_site_id         = ! isset ( $data['tempest_site_id'] ) ? '' : $data['tempest_site_id'];
+  $tempest_content_item_id = ! isset ( $data['tempest_content_item_id'] ) ? '' : $data['tempest_content_item_id'];
+
 	$user_id = ! isset( $data['user_id'] ) ? 0 : $data['user_id'];
 
-	$compacted = compact( 'comment_post_ID', 'comment_author', 'comment_author_email', 'comment_author_url', 'comment_author_IP', 'comment_date', 'comment_date_gmt', 'comment_content', 'comment_karma', 'comment_approved', 'comment_agent', 'comment_type', 'comment_parent', 'user_id' );
+	$compacted = compact( 'tempest_site_id', 'tempest_content_item_id', 'comment_post_ID', 'comment_author', 'comment_author_email', 'comment_author_url', 'comment_author_IP', 'comment_date', 'comment_date_gmt', 'comment_content', 'comment_karma', 'comment_approved', 'comment_agent', 'comment_type', 'comment_parent', 'user_id' );
 	if ( ! $wpdb->insert( $wpdb->comments, $compacted ) ) {
 		return false;
 	}

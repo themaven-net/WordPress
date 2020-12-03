@@ -3684,7 +3684,9 @@ function wp_insert_post( $postarr, $wp_error = false, $fire_after_hooks = true )
 		'menu_order'            => 0,
 		'guid'                  => '',
 		'import_id'             => 0,
-		'context'               => '',
+    'context'               => '',
+    'tempest_site_id'       => '',
+    'tempest_content_item_id' => '',
 	);
 
 	$postarr = wp_parse_args( $postarr, $defaults );
@@ -3894,6 +3896,8 @@ function wp_insert_post( $postarr, $wp_error = false, $fire_after_hooks = true )
 	$to_ping               = isset( $postarr['to_ping'] ) ? sanitize_trackback_urls( $postarr['to_ping'] ) : '';
 	$pinged                = isset( $postarr['pinged'] ) ? $postarr['pinged'] : '';
 	$import_id             = isset( $postarr['import_id'] ) ? $postarr['import_id'] : 0;
+  $tempest_site_id         = $postarr['tempest_site_id'];
+  $tempest_content_item_id = $postarr['tempest_content_item_id'];
 
 	/*
 	 * The 'wp_insert_post_parent' filter expects all variables to be present.
@@ -3977,7 +3981,7 @@ function wp_insert_post( $postarr, $wp_error = false, $fire_after_hooks = true )
 	$post_mime_type = isset( $postarr['post_mime_type'] ) ? $postarr['post_mime_type'] : '';
 
 	// Expected_slashed (everything!).
-	$data = compact( 'post_author', 'post_date', 'post_date_gmt', 'post_content', 'post_content_filtered', 'post_title', 'post_excerpt', 'post_status', 'post_type', 'comment_status', 'ping_status', 'post_password', 'post_name', 'to_ping', 'pinged', 'post_modified', 'post_modified_gmt', 'post_parent', 'menu_order', 'post_mime_type', 'guid' );
+	$data = compact( 'tempest_site_id', 'tempest_content_item_id', 'post_author', 'post_date', 'post_date_gmt', 'post_content', 'post_content_filtered', 'post_title', 'post_excerpt', 'post_status', 'post_type', 'comment_status', 'ping_status', 'post_password', 'post_name', 'to_ping', 'pinged', 'post_modified', 'post_modified_gmt', 'post_parent', 'menu_order', 'post_mime_type', 'guid' );
 
 	$emoji_fields = array( 'post_title', 'post_content', 'post_excerpt' );
 

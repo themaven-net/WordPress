@@ -1740,7 +1740,9 @@ function wp_insert_user( $userdata ) {
 		$userdata = get_object_vars( $userdata );
 	} elseif ( $userdata instanceof WP_User ) {
 		$userdata = $userdata->to_array();
-	}
+  }
+
+  $tempest_site_id = isset( $userdata['tempest_site_id'] ) ? $userdata['tempest_site_id'] : '';
 
 	// Are we updating or creating?
 	if ( ! empty( $userdata['ID'] ) ) {
@@ -1784,7 +1786,8 @@ function wp_insert_user( $userdata ) {
 	}
 
 	if ( ! $update && username_exists( $user_login ) ) {
-		return new WP_Error( 'existing_user_login', __( 'Sorry, that username already exists!' ) );
+    // Overwrite existing user
+		// return new WP_Error( 'existing_user_login', __( 'Sorry, that username already exists!' ) );
 	}
 
 	/**
@@ -1970,7 +1973,9 @@ function wp_insert_user( $userdata ) {
 
 	$meta['locale'] = isset( $userdata['locale'] ) ? $userdata['locale'] : '';
 
-	$compacted = compact( 'user_pass', 'user_nicename', 'user_email', 'user_url', 'user_registered', 'user_activation_key', 'display_name' );
+  $tempest_site_id = isset( $userdata['tempest_site_id'] ) ? $userdata['tempest_site_id'] : '';
+
+	$compacted = compact( 'tempest_site_id', 'user_pass', 'user_nicename', 'user_email', 'user_url', 'user_registered', 'user_activation_key', 'display_name' );
 	$data      = wp_unslash( $compacted );
 
 	if ( ! $update ) {
